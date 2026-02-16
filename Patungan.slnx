@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Patungan.API/Patungan.API.csproj" />
+  <Project Path="Patungan.DataAccess/Patungan.DataAccess.csproj" />
+  <Project Path="Patungan.Services.Test/Patungan.Services.Test.csproj" />
+  <Project Path="Patungan.Services/Patungan.Services.csproj" />
+  <Project Path="Patungan.Shared/Patungan.Shared.csproj" />
+</Solution>
