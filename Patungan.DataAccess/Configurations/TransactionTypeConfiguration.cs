@@ -22,6 +22,9 @@ namespace Patungan.DataAccess.Configurations
 
             builder.Property(t => t.Nature)
                 .HasColumnType("public.transaction_nature")
+                .HasConversion(
+                    v => v.ToString().ToLowerInvariant(),
+                    v => Enum.Parse<TransactionNature>(v, true))
                 .IsRequired();
 
             builder.Property(t => t.Description)

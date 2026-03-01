@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Patungan.DataAccess.Entities;
+using Patungan.Shared.Constants;
 
 namespace Patungan.DataAccess.Configurations
 {
@@ -21,6 +22,9 @@ namespace Patungan.DataAccess.Configurations
 
             builder.Property(t => t.Nature)
                 .HasColumnType("public.transaction_nature")
+                .HasConversion(
+                    v => v.ToString().ToLowerInvariant(),
+                    v => Enum.Parse<TransactionNature>(v, true))
                 .IsRequired();
 
             builder.Property(t => t.Description)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Patungan.DataAccess.Configurations;
 using Patungan.DataAccess.Entities;
+using Patungan.DataAccess.Seeders;
 using Patungan.Shared.Constants;
 
 namespace Patungan.DataAccess.Contexts
@@ -16,6 +17,7 @@ namespace Patungan.DataAccess.Contexts
             modelBuilder.HasPostgresEnum<TransactionNature>("public","transaction_nature");
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PatunganDbContext).Assembly);
 
+            TransactionTypeTemplateSeeder.Seed(modelBuilder);
             base.OnModelCreating(modelBuilder);
 
             UserConfiguration.Configure(modelBuilder.Entity<UserModel>());
