@@ -16,6 +16,12 @@ namespace Patungan.DataAccess.Repositories
         public async Task<bool> EmailExistsAsync(string email)
            => await _context.Users.AnyAsync(u => u.Email == email);
 
+        public async Task<UserModel?> GetByEmailAsync(string email)
+           => await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+        public async Task<UserModel?> GetByIdAsync(int id)
+           => await _context.Users.FindAsync(id);
+
         public async Task AddUserAsync(UserModel user)
         {
             _context.Users.Add(user);

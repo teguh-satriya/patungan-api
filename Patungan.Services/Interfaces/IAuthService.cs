@@ -7,5 +7,8 @@ namespace Patungan.Services.Interfaces
     public interface IAuthService
     {
         Task<ApiResponse<UserResponse>> RegisterAsync(RegistrationRequest request);
+        Task<ApiResponse<LoginResponse>> LoginAsync(LoginRequest request);
+        Task<ApiResponse<RefreshTokenResponse>> RefreshTokenAsync(RefreshTokenRequest request);
+        Task<ApiResponse<object>> RevokeTokenAsync(string refreshToken, int userId);
     }
 }

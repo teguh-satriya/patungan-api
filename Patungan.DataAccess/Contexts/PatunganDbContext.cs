@@ -32,5 +32,6 @@ namespace Patungan.DataAccess.Contexts
         public DbSet<TransactionTypeModel> TransactionTypes { get; set; }
         public DbSet<TransactionModel> Transactions { get; set; }
         public DbSet<MonthlySummaryModel> MonthlySummaries { get; set; }
+        public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
     }
 }

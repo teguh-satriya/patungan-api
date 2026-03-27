@@ -13,6 +13,11 @@ namespace Patungan.DataAccess.Repositories
             _context = context;
         }
 
+        public async Task<TransactionTypeModel?> GetByIdAsync(int id)
+        {
+            return await _context.TransactionTypes.FindAsync(id);
+        }
+
         public async Task<IReadOnlyList<TransactionTypeModel>> GetTransactionTypesByUserIdAsync(int userId)
         {
             return await _context.TransactionTypes
