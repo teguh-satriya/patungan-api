@@ -21,10 +21,7 @@ namespace Patungan.DataAccess.Configurations
                 .IsRequired();
 
             builder.Property(t => t.Nature)
-                .HasColumnType("public.transaction_nature")
-                .HasConversion(
-                    v => v.ToString().ToLowerInvariant(),
-                    v => Enum.Parse<TransactionNature>(v, true))
+                .HasMaxLength(10)
                 .IsRequired();
 
             builder.Property(t => t.Description)
@@ -34,7 +31,7 @@ namespace Patungan.DataAccess.Configurations
             builder.Property(t => t.Icon)
                 .HasMaxLength(50)
                 .IsRequired()
-                .HasDefaultValue("Category");
+                .HasDefaultValue("attach_money");
 
             builder.Property(t => t.UserId)
                 .IsRequired();

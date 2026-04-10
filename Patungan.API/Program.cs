@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using Npgsql;
 using Patungan.DataAccess.Contexts;
 using Patungan.DataAccess.Entities;
 using Patungan.DataAccess.Interfaces;
 using Patungan.DataAccess.Repositories;
 using Patungan.Services.Interfaces;
 using Patungan.Services.Services;
+using Patungan.Shared.Constants;
 using Patungan.Shared.Settings;
 using System.Text;
 
@@ -17,6 +19,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure JWT Settings
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
+// Validate JWT settings
+if (string.IsNullOrEmpty(jwtSettings?.SecretKey) || jwtSettings.SecretKey.Length < 32)
+{
+    throw new InvalidOperationException("JWT SecretKey must be at least 32 characters (256 bits) long.");
+}
 
 builder.Services.AddDbContext<PatunganDbContext>(
         optionsAction => optionsAction.UseNpgsql(builder.Configuration.GetConnectionString("PatunganDBConnection")),
@@ -79,17 +87,15 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 // Register Swagger generator
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "My API",
+        Title = "Patungan API",
         Version = "v1",
-        Description = "Example API with Swagger JSON generation"
+        Description = "Patungan API - Personal Finance Management"
     });
 });
 
@@ -99,7 +105,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.MapOpenApi();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");

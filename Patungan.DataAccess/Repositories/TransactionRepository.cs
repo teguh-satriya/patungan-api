@@ -55,7 +55,7 @@ namespace Patungan.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<decimal> GetTotalByMonthlySummaryAndNatureAsync(int monthlySummaryId, TransactionNature nature)
+        public async Task<decimal> GetTotalByMonthlySummaryAndNatureAsync(int monthlySummaryId, string nature)
         {
             return await _context.Transactions
                 .Include(t => t.TransactionType)

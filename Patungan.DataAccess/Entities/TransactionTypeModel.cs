@@ -6,7 +6,7 @@ namespace Patungan.DataAccess.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public TransactionNature Nature { get; set; }
+        public string Nature { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Icon { get; set; } = "Category";
         public int UserId { get; set; }

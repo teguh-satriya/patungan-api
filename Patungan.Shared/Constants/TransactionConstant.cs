@@ -1,10 +1,11 @@
 ﻿namespace Patungan.Shared.Constants
 {
-    public enum TransactionNature
+    public class TransactionNature
     {
-        Income,
-        Outcome
+        public const string Income = "income";
+        public const string Outcome = "outcome";
     }
+
     public class TransactionConstant
     {
     }

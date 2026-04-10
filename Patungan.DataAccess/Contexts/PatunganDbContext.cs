@@ -14,7 +14,6 @@ namespace Patungan.DataAccess.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasPostgresEnum<TransactionNature>("public","transaction_nature");
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PatunganDbContext).Assembly);
 
             TransactionTypeTemplateSeeder.Seed(modelBuilder);

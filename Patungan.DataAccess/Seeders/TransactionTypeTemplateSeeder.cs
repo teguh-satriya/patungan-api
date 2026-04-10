@@ -10,12 +10,12 @@ namespace Patungan.DataAccess.Seeders
         public static void Seed(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TransactionTypeTemplateModel>().HasData(
-                new TransactionTypeTemplateModel { Id = 1, Name = "Salary", Nature = TransactionNature.Income, Description = "Primary monthly income", Icon = "AttachMoney" },
-                new TransactionTypeTemplateModel { Id = 2, Name = "Side Hustle", Nature = TransactionNature.Income, Description = "Secondary income streams", Icon = "WorkOutline" },
-                new TransactionTypeTemplateModel { Id = 3, Name = "Investasi", Nature = TransactionNature.Income, Description = "", Icon = "TrendingUp" },
-                new TransactionTypeTemplateModel { Id = 4, Name = "Belanja Kebutuhan", Nature = TransactionNature.Outcome, Description = "", Icon = "ShoppingCart" },
-                new TransactionTypeTemplateModel { Id = 5, Name = "Utilitas", Nature = TransactionNature.Outcome, Description = "", Icon = "ElectricalServices" },
-                new TransactionTypeTemplateModel { Id = 6, Name = "Hiburan", Nature = TransactionNature.Outcome, Description = "", Icon = "MovieFilter" }
+                new TransactionTypeTemplateModel { Id = 1, Name = "Salary", Nature = TransactionNature.Income, Description = "Primary monthly income", Icon = "attach_money" },
+                new TransactionTypeTemplateModel { Id = 2, Name = "Side Hustle", Nature = TransactionNature.Income, Description = "Secondary income streams", Icon = "work_outline" },
+                new TransactionTypeTemplateModel { Id = 3, Name = "Investasi", Nature = TransactionNature.Income, Description = "", Icon = "trending_up" },
+                new TransactionTypeTemplateModel { Id = 4, Name = "Belanja Kebutuhan", Nature = TransactionNature.Outcome, Description = "", Icon = "shopping_cart" },
+                new TransactionTypeTemplateModel { Id = 5, Name = "Utilitas", Nature = TransactionNature.Outcome, Description = "", Icon = "electrical_services" },
+                new TransactionTypeTemplateModel { Id = 6, Name = "Hiburan", Nature = TransactionNature.Outcome, Description = "", Icon = "movie_filter" }
             );
         }
     }

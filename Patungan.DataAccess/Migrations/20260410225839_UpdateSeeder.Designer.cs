@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Patungan.DataAccess.Contexts;
@@ -11,9 +12,11 @@ using Patungan.DataAccess.Contexts;
 namespace Patungan.DataAccess.Migrations
 {
     [DbContext(typeof(PatunganDbContext))]
-    partial class PatunganDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260410225839_UpdateSeeder")]
+    partial class UpdateSeeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

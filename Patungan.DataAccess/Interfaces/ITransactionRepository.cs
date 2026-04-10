@@ -9,7 +9,7 @@ namespace Patungan.DataAccess.Interfaces
         Task<List<TransactionModel>> GetByMonthlySummaryIdAsync(int monthlySummaryId);
         Task<List<TransactionModel>> GetByUserAndDateRangeAsync(int userId, DateOnly from, DateOnly to);
         Task<List<TransactionModel>> GetByUserAndTypeAsync(int userId, int transactionTypeId, DateOnly from, DateOnly to);
-        Task<decimal> GetTotalByMonthlySummaryAndNatureAsync(int monthlySummaryId, TransactionNature nature);
+        Task<decimal> GetTotalByMonthlySummaryAndNatureAsync(int monthlySummaryId, string nature);
         Task AddAsync(TransactionModel transaction);
         Task UpdateAsync(TransactionModel transaction);
         Task DeleteAsync(TransactionModel transaction);

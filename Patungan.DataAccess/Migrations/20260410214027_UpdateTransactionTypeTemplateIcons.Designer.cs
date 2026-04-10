@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Patungan.DataAccess.Contexts;
@@ -11,9 +12,11 @@ using Patungan.DataAccess.Contexts;
 namespace Patungan.DataAccess.Migrations
 {
     [DbContext(typeof(PatunganDbContext))]
-    partial class PatunganDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260410214027_UpdateTransactionTypeTemplateIcons")]
+    partial class UpdateTransactionTypeTemplateIcons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace Patungan.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
-                        .HasDefaultValue("attach_money");
+                        .HasDefaultValue("Category");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -205,7 +208,7 @@ namespace Patungan.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
-                        .HasDefaultValue("attach_money");
+                        .HasDefaultValue("Category");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -226,7 +229,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Primary monthly income",
-                            Icon = "attach_money",
+                            Icon = "account_balance",
                             Name = "Salary",
                             Nature = "income"
                         },
@@ -234,7 +237,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 2,
                             Description = "Secondary income streams",
-                            Icon = "work_outline",
+                            Icon = "account_balance",
                             Name = "Side Hustle",
                             Nature = "income"
                         },
@@ -242,7 +245,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 3,
                             Description = "",
-                            Icon = "trending_up",
+                            Icon = "account_balance",
                             Name = "Investasi",
                             Nature = "income"
                         },
@@ -250,7 +253,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 4,
                             Description = "",
-                            Icon = "shopping_cart",
+                            Icon = "account_balance",
                             Name = "Belanja Kebutuhan",
                             Nature = "outcome"
                         },
@@ -258,7 +261,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 5,
                             Description = "",
-                            Icon = "electrical_services",
+                            Icon = "account_balance",
                             Name = "Utilitas",
                             Nature = "outcome"
                         },
@@ -266,7 +269,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 6,
                             Description = "",
-                            Icon = "movie_filter",
+                            Icon = "account_balance",
                             Name = "Hiburan",
                             Nature = "outcome"
                         });

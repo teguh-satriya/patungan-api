@@ -12,8 +12,8 @@ using Patungan.DataAccess.Contexts;
 namespace Patungan.DataAccess.Migrations
 {
     [DbContext(typeof(PatunganDbContext))]
-    [Migration("20260327093844_AddRefreshTokenTable")]
-    partial class AddRefreshTokenTable
+    [Migration("20260410204339_ChangeNatureToString")]
+    partial class ChangeNatureToString
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,6 @@ namespace Patungan.DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "public", "transaction_nature", new[] { "income", "outcome" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Patungan.DataAccess.Entities.MonthlySummaryModel", b =>
@@ -165,6 +164,13 @@ namespace Patungan.DataAccess.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)");
 
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasDefaultValue("Category");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -172,7 +178,8 @@ namespace Patungan.DataAccess.Migrations
 
                     b.Property<string>("Nature")
                         .IsRequired()
-                        .HasColumnType("public.transaction_nature");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -196,6 +203,13 @@ namespace Patungan.DataAccess.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)");
 
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasDefaultValue("Category");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -203,7 +217,8 @@ namespace Patungan.DataAccess.Migrations
 
                     b.Property<string>("Nature")
                         .IsRequired()
-                        .HasColumnType("public.transaction_nature");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.HasKey("Id");
 
@@ -214,6 +229,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Primary monthly income",
+                            Icon = "AttachMoney",
                             Name = "Salary",
                             Nature = "income"
                         },
@@ -221,6 +237,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 2,
                             Description = "Secondary income streams",
+                            Icon = "WorkOutline",
                             Name = "Side Hustle",
                             Nature = "income"
                         },
@@ -228,6 +245,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 3,
                             Description = "",
+                            Icon = "TrendingUp",
                             Name = "Investasi",
                             Nature = "income"
                         },
@@ -235,6 +253,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 4,
                             Description = "",
+                            Icon = "ShoppingCart",
                             Name = "Belanja Kebutuhan",
                             Nature = "outcome"
                         },
@@ -242,6 +261,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 5,
                             Description = "",
+                            Icon = "ElectricalServices",
                             Name = "Utilitas",
                             Nature = "outcome"
                         },
@@ -249,6 +269,7 @@ namespace Patungan.DataAccess.Migrations
                         {
                             Id = 6,
                             Description = "",
+                            Icon = "MovieFilter",
                             Name = "Hiburan",
                             Nature = "outcome"
                         });
