@@ -31,6 +31,11 @@ namespace Patungan.DataAccess.Configurations
                 .HasMaxLength(512)
                 .IsRequired(false);
 
+            builder.Property(t => t.Icon)
+                .HasMaxLength(50)
+                .IsRequired()
+                .HasDefaultValue("Category");
+
             builder.Property(t => t.UserId)
                 .IsRequired();
 

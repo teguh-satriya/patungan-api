@@ -1,10 +1,11 @@
-﻿using Patungan.Shared.Constants;
+using Patungan.Shared.Constants;
 
-namespace Patungan.DataAccess.Entities
+namespace Patungan.Shared.Requests.TransactionType
 {
-    public class TransactionTypeTemplateModel
+    public class UpdateTransactionTypeRequest
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; } = string.Empty;
         public TransactionNature Nature { get; set; }
         public string Description { get; set; } = string.Empty;

@@ -6,6 +6,9 @@ namespace Patungan.DataAccess.Interfaces
     {
         Task<TransactionTypeModel?> GetByIdAsync(int id);
         Task<IReadOnlyList<TransactionTypeModel>> GetTransactionTypesByUserIdAsync(int userId);
+        Task AddAsync(TransactionTypeModel transactionType);
+        Task UpdateAsync(TransactionTypeModel transactionType);
+        Task DeleteAsync(TransactionTypeModel transactionType);
         Task AddRangeAsync(IEnumerable<TransactionTypeModel> transactionTypes);
     }
 }

@@ -4,6 +4,7 @@ namespace Patungan.Shared.Responses.Budget
     {
         public int TransactionTypeId { get; set; }
         public string TransactionTypeName { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
         public string Nature { get; set; } = string.Empty;
         public decimal TotalAmount { get; set; }
         public int TransactionCount { get; set; }

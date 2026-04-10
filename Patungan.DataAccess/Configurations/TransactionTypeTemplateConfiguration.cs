@@ -30,6 +30,11 @@ namespace Patungan.DataAccess.Configurations
             builder.Property(t => t.Description)
                 .HasMaxLength(512)
                 .IsRequired(false);
+
+            builder.Property(t => t.Icon)
+                .HasMaxLength(50)
+                .IsRequired()
+                .HasDefaultValue("Category");
         }
     }
 }

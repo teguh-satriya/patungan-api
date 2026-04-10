@@ -25,9 +25,27 @@ namespace Patungan.DataAccess.Repositories
                 .ToListAsync();
         }
 
+        public async Task AddAsync(TransactionTypeModel transactionType)
+        {
+            await _context.TransactionTypes.AddAsync(transactionType);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddRangeAsync(IEnumerable<TransactionTypeModel> transactionTypes)
         {
             await _context.TransactionTypes.AddRangeAsync(transactionTypes);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(TransactionTypeModel transactionType)
+        {
+            _context.TransactionTypes.Update(transactionType);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(TransactionTypeModel transactionType)
+        {
+            _context.TransactionTypes.Remove(transactionType);
             await _context.SaveChangesAsync();
         }
     }

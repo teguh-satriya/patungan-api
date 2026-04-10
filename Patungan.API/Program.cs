@@ -41,6 +41,7 @@ builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IMonthlySummaryService, MonthlySummaryService>();
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
