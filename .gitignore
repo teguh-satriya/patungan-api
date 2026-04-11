@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 /Patungan.API/appsettings.Development.json
 /Patungan.API/appsettings.json
+
+# .NET 10 Build Host Artifacts
+**/BuildHost-net472/
+**/BuildHost-netcore/

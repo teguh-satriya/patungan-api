@@ -24,4 +24,13 @@
     <ProjectReference Include="..\Patungan.Shared\Patungan.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="@(Content)">
+      <Visible Condition="'%(NuGetItemType)' == 'Content'">false</Visible>
+    </Content>
+  </ItemGroup>
+  
+  <Target Name="CleanupBuildHosts" AfterTargets="Build">
+    <RemoveDir Directories="$(ProjectDir)BuildHost-net472;$(ProjectDir)BuildHost-netcore" />
+  </Target>
 </Project>
