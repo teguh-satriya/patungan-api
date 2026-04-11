@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Patungan.API/appsettings.Development.json
+/Patungan.API/appsettings.json
