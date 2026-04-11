@@ -42,6 +42,12 @@ namespace Patungan.API.Controllers
         {
             try
             {
+                // Validate query parameters early to avoid DateOnly/DateTime construction errors
+                if (startYear <= 0 || endYear <= 0 || startMonth <= 0 || endMonth <= 0)
+                    return BadRequest(ApiResponse<IncomeExpenseComparisonResponse>.Fail("Query parameters startYear, startMonth, endYear and endMonth are required and must be > 0"));
+                if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12)
+                    return BadRequest(ApiResponse<IncomeExpenseComparisonResponse>.Fail("Month must be between 1 and 12"));
+
                 var result = await _reportService.GetIncomeExpenseComparisonAsync(userId, startYear, startMonth, endYear, endMonth);
                 return Ok(ApiResponse<IncomeExpenseComparisonResponse>.Ok("Income expense comparison retrieved successfully", result));
             }

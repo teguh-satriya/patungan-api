@@ -14,5 +14,9 @@ namespace Patungan.DataAccess.Interfaces
         Task UpdateAsync(TransactionModel transaction);
         Task DeleteAsync(TransactionModel transaction);
         Task<bool> ExistsAsync(int id);
+        // Transaction control via repository to allow services to create atomic operations
+        Task BeginTransactionAsync();
+        Task CommitTransactionAsync();
+        Task RollbackTransactionAsync();
     }
 }

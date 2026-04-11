@@ -48,12 +48,24 @@ namespace Patungan.Services.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            await _transactionRepository.AddAsync(transaction);
+            // ensure atomicity: use repository-provided transaction control
+            await _transactionRepository.BeginTransactionAsync();
+            try
+            {
+                await _transactionRepository.AddAsync(transaction);
 
-            await _monthlySummaryService.RecalculateMonthlySummaryAsync(
-                request.UserId, 
-                request.Date.Year, 
-                request.Date.Month);
+                await _monthlySummaryService.RecalculateMonthlySummaryAsync(
+                    request.UserId,
+                    request.Date.Year,
+                    request.Date.Month);
+
+                await _transactionRepository.CommitTransactionAsync();
+            }
+            catch
+            {
+                await _transactionRepository.RollbackTransactionAsync();
+                throw;
+            }
 
             var createdTransaction = await _transactionRepository.GetByIdAsync(transaction.Id);
             return MapToResponse(createdTransaction!);
@@ -87,19 +99,31 @@ namespace Patungan.Services.Services
             transaction.Amount = request.Amount;
             transaction.Notes = request.Notes;
 
-            await _transactionRepository.UpdateAsync(transaction);
-
-            await _monthlySummaryService.RecalculateMonthlySummaryAsync(
-                oldMonthlySummary.UserId, 
-                oldMonthlySummary.Year, 
-                oldMonthlySummary.Month);
-
-            if (needsNewSummary)
+            // perform update and recalculations within a DB transaction via repository
+            await _transactionRepository.BeginTransactionAsync();
+            try
             {
+                await _transactionRepository.UpdateAsync(transaction);
+
                 await _monthlySummaryService.RecalculateMonthlySummaryAsync(
-                    transaction.UserId, 
-                    request.Date.Year, 
-                    request.Date.Month);
+                    oldMonthlySummary.UserId,
+                    oldMonthlySummary.Year,
+                    oldMonthlySummary.Month);
+
+                if (needsNewSummary)
+                {
+                    await _monthlySummaryService.RecalculateMonthlySummaryAsync(
+                        transaction.UserId,
+                        request.Date.Year,
+                        request.Date.Month);
+                }
+
+                await _transactionRepository.CommitTransactionAsync();
+            }
+            catch
+            {
+                await _transactionRepository.RollbackTransactionAsync();
+                throw;
             }
 
             var updatedTransaction = await _transactionRepository.GetByIdAsync(transactionId);
@@ -113,12 +137,23 @@ namespace Patungan.Services.Services
                 throw new Exception("Transaction not found");
 
             var monthlySummary = transaction.MonthlySummary;
-            await _transactionRepository.DeleteAsync(transaction);
+            await _transactionRepository.BeginTransactionAsync();
+            try
+            {
+                await _transactionRepository.DeleteAsync(transaction);
 
-            await _monthlySummaryService.RecalculateMonthlySummaryAsync(
-                monthlySummary.UserId, 
-                monthlySummary.Year, 
-                monthlySummary.Month);
+                await _monthlySummaryService.RecalculateMonthlySummaryAsync(
+                    monthlySummary.UserId,
+                    monthlySummary.Year,
+                    monthlySummary.Month);
+
+                await _transactionRepository.CommitTransactionAsync();
+            }
+            catch
+            {
+                await _transactionRepository.RollbackTransactionAsync();
+                throw;
+            }
         }
 
         public async Task<List<TransactionResponse>> GetMonthlyTransactionsAsync(int userId, int year, int month)

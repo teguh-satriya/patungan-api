@@ -89,12 +89,38 @@ namespace Patungan.Services.Services
             int endYear, 
             int endMonth)
         {
+            // validate input months/years
+            if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12)
+                throw new ArgumentException("Month must be between 1 and 12");
+
+            if (startYear < 1 || startYear > 9999 || endYear < 1 || endYear > 9999)
+                throw new ArgumentException("Year must be between 1 and 9999");
+
+            // Normalize range and build DateOnly start/end (guard against invalid values)
+            DateOnly startDate;
+            DateOnly endDate;
+            try
+            {
+                startDate = new DateOnly(startYear, startMonth, 1);
+                endDate = new DateOnly(endYear, endMonth, 1);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid startYear/startMonth or endYear/endMonth provided", ex);
+            }
+            if (endDate < startDate)
+            {
+                var tmp = startDate;
+                startDate = endDate;
+                endDate = tmp;
+            }
+
             var summaries = await _monthlySummaryRepository.GetByUserAndDateRangeAsync(
-                userId, 
-                startYear, 
-                startMonth, 
-                endYear, 
-                endMonth);
+                userId,
+                startDate.Year,
+                startDate.Month,
+                endDate.Year,
+                endDate.Month);
 
             var monthlyBreakdown = new List<MonthlyComparisonItem>();
             decimal totalIncome = 0;
@@ -126,12 +152,12 @@ namespace Patungan.Services.Services
 
             return new IncomeExpenseComparisonResponse
             {
-                StartDate = new DateOnly(startYear, startMonth, 1),
-                EndDate = new DateOnly(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth)),
-                TotalIncome = totalIncome,
-                TotalExpense = totalExpense,
-                NetAmount = totalIncome - totalExpense,
-                MonthlyBreakdown = monthlyBreakdown
+                StartDate = new DateOnly(startDate.Year, startDate.Month, 1), // No change
+                EndDate = new DateOnly(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month)), // No change
+                TotalIncome = totalIncome, // No change
+                TotalExpense = totalExpense, // No change
+                NetAmount = totalIncome - totalExpense, // No change
+                MonthlyBreakdown = monthlyBreakdown // No change
             };
         }
 

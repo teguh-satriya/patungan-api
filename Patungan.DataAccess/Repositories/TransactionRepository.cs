@@ -15,6 +15,25 @@ namespace Patungan.DataAccess.Repositories
             _context = context;
         }
 
+        public async Task BeginTransactionAsync()
+        {
+            await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            var tx = _context.Database.CurrentTransaction;
+            if (tx != null)
+                await tx.CommitAsync();
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            var tx = _context.Database.CurrentTransaction;
+            if (tx != null)
+                await tx.RollbackAsync();
+        }
+
         public async Task<TransactionModel?> GetByIdAsync(int id)
         {
             return await _context.Transactions
