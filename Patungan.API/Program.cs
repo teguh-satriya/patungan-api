@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using Npgsql;
 using Patungan.DataAccess.Contexts;
 using Patungan.DataAccess.Entities;
 using Patungan.DataAccess.Interfaces;
 using Patungan.DataAccess.Repositories;
 using Patungan.Services.Interfaces;
 using Patungan.Services.Services;
-using Patungan.Shared.Constants;
 using Patungan.Shared.Settings;
 using System.Text;
 
